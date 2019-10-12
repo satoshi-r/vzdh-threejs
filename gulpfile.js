@@ -19,7 +19,7 @@ gulp.task('browser-sync', function() {
 		},
 		notify: false,
 		// online: false, // Work offline without internet connection
-		// tunnel: true, tunnel: 'projectname', // Demonstration page: http://projectname.localtunnel.me
+		// tunnel: true, tunnel: 'satoshi', // Demonstration page: http://projectname.localtunnel.me
 	})
 });
 function bsReload(done) { browserSync.reload(); done(); };
