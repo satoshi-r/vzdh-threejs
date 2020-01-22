@@ -96,7 +96,7 @@ gulp.task('img', gulp.series('img-opt', bsReload));
 
 // Clean IMG's
 gulp.task('cleanimg', function () {
-	return del(['src/img/**/*', '!src/img/_src/**/*'], {
+	return del(['src/img/**/*', '!src/img/_src/**/*', '!src/img/favicon.*'], {
 		force: true
 	})
 });

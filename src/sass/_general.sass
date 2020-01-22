@@ -15,6 +15,17 @@ input, textarea
 	&:required:valid
 		border-color: green
 
+a, label
+	-webkit-tap-highlight-color: transparent
+
+a
+	color: $text
+	cursor: pointer
+	transition: .1s
+	&:hover, &:active
+		color: $accent
+		text-decoration: none
+
 body
 	font-size: 18px
 	min-width: 320px
