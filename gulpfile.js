@@ -79,7 +79,7 @@ gulp.task('scripts', function () {
 
 // Images
 gulp.task('images', async function () {
-	return gulp.src('src/img/_src/**/*.{png,jpg,jpeg,webp,raw,svg}')
+	return gulp.src('src/img/_src/**/*.{png,jpg,jpeg,webp,raw,svg,gif}')
 		.pipe(imagemin([
 	    imagemin.gifsicle({interlaced: true}),
 	    imagemin.mozjpeg({quality: 75, progressive: true}),
@@ -136,52 +136,52 @@ gulp.task('rsync', function () {
 });
 
 // Build
-gulp.task('css:public', function () {
+gulp.task('css:build', function () {
 	return gulp.src('src/css/*.css')
-		.pipe(gulp.dest('public/css'))
+		.pipe(gulp.dest('dist/css'))
 		.pipe(debug({
 			title: 'dest'
 		}))
 });
 
-gulp.task('js:public', function () {
+gulp.task('js:build', function () {
 	return gulp.src('src/js/scripts.min.js')
 		.pipe(uglify())
-		.pipe(gulp.dest('public/js/'))
+		.pipe(gulp.dest('dist/js/'))
 		.pipe(debug({
 			title: 'dest'
 		}))
 });
 
-gulp.task('html:public', function () {
+gulp.task('html:build', function () {
 	return gulp.src('src/*.{html,htaccess,access}')
-		.pipe(gulp.dest('public/'))
+		.pipe(gulp.dest('dist/'))
 		.pipe(debug({
 			title: 'dest'
 		}))
 });
 
-gulp.task('img:public', function () {
+gulp.task('img:build', function () {
 	return gulp.src('src/img/*.{png,jpg,jpeg,webp,raw,ico,svg}')
-		.pipe(gulp.dest('public/img/'))
+		.pipe(gulp.dest('dist/img/'))
 		.pipe(debug({
 			title: 'dest'
 		}))
 });
 
-gulp.task('fonts:public', function () {
+gulp.task('fonts:build', function () {
 	return gulp.src(['src/fonts/*', '!src/fonts/_src/**'])
-		.pipe(gulp.dest('public/fonts/'))
+		.pipe(gulp.dest('dist/fonts/'))
 		.pipe(debug({
 			title: 'dest'
 		}))
 });
 
-gulp.task('clean:public', function () {
-	return del('public')
+gulp.task('clean:build', function () {
+	return del('dist')
 });
 
-gulp.task('public', gulp.series('clean:public', gulp.parallel('css:public', 'js:public', 'html:public', 'img:public', 'fonts:public')));
+gulp.task('build', gulp.series('clean:build', gulp.parallel('css:build', 'js:build', 'html:build', 'img:build', 'fonts:build')));
 
 // Watch
 gulp.task('watch', function () {
