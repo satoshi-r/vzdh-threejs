@@ -8,7 +8,6 @@ var gulp = require('gulp'),
 	webp = require('gulp-webp'),
 	clone = require('gulp-clone'),
 	clonesink = clone.sink(),
-	rsync = require('gulp-rsync'),
 	newer = require('gulp-newer'),
 	rename = require('gulp-rename'),
 	imagemin = require('gulp-imagemin'),
@@ -116,22 +115,6 @@ gulp.task('code', function () {
 	return gulp.src('src/**/*.html')
 		.pipe(browserSync.reload({
 			stream: true
-		}))
-});
-
-// Deploy
-gulp.task('rsync', function () {
-	return gulp.src('src/')
-		.pipe(rsync({
-			root: 'src/',
-			hostname: 'username@yousite.com',
-			destination: 'yousite/public_html/',
-			// include: ['*.htaccess'], // Included files
-			exclude: ['**/Thumbs.db', '**/*.DS_Store'], // Excluded files
-			recursive: true,
-			archive: true,
-			silent: false,
-			compress: true
 		}))
 });
 
