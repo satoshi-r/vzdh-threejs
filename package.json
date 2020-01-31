@@ -15,15 +15,17 @@
 		"gulp": "^4.0.2",
 		"gulp-autoprefixer": "^7.0.0",
 		"gulp-clean-css": "^4.2.0",
+		"gulp-clone": "^2.0.1",
 		"gulp-concat": "^2.6.1",
 		"gulp-debug": "^4.0.0",
-		"gulp-imagemin": "^6.2.0",
+		"gulp-imagemin": "^7.1.0",
 		"gulp-newer": "^1.4.0",
 		"gulp-notify": "^3.2.0",
 		"gulp-rename": "^1.4.0",
 		"gulp-rsync": "0.0.8",
 		"gulp-sass": "^4.0.2",
 		"gulp-uglify-es": "^1.0.4",
+		"gulp-webp": "^4.0.1",
 		"imagemin-pngquant": "^8.0.0"
 	}
 }

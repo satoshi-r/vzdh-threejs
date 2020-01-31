@@ -5,6 +5,9 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify-es').default,
 	cleancss = require('gulp-clean-css'),
 	autoprefixer = require('gulp-autoprefixer'),
+	webp = require('gulp-webp'),
+	clone = require('gulp-clone'),
+	clonesink = clone.sink(),
 	rsync = require('gulp-rsync'),
 	newer = require('gulp-newer'),
 	rename = require('gulp-rename'),
@@ -75,28 +78,35 @@ gulp.task('scripts', function () {
 });
 
 // Images
-gulp.task('img-opt', async function () {
+gulp.task('images', async function () {
 	return gulp.src('src/img/_src/**/*.{png,jpg,jpeg,webp,raw,svg}')
-		.pipe(imagemin({
-			progressive: true,
-			svgoPlugins: [{
-				removeViewBox: false
-			}],
-			use: [pngquant()],
-			interlaced: true
-		}))
+		.pipe(imagemin([
+	    imagemin.gifsicle({interlaced: true}),
+	    imagemin.mozjpeg({quality: 75, progressive: true}),
+	    imagemin.optipng({optimizationLevel: 5}),
+	    imagemin.svgo({
+	        plugins: [
+	            {removeViewBox: true},
+	            {cleanupIDs: false}
+	        ]
+	    })
+    ]))
 		.pipe(newer('src/img'))
 		.pipe(rename(function (path) {
 			path.extname = path.extname.replace('jpeg', 'jpg')
 		}))
+		.pipe(clonesink) // start stream
+		.pipe(webp()) // convert images to webp and save a copy of the original format
+		.pipe(clonesink.tap()) // close stream
+		
 		.pipe(gulp.dest('src/img'))
 });
 
-gulp.task('img', gulp.series('img-opt', bsReload));
+gulp.task('img', gulp.series('images', bsReload));
 
 // Clean IMG's
 gulp.task('cleanimg', function () {
-	return del(['src/img/**/*', '!src/img/_src/**/*', '!src/img/favicon.*'], {
+	return del(['src/img/**/*', '!src/img/_src', '!src/img/favicon.*'], {
 		force: true
 	})
 });
