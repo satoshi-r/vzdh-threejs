@@ -11,7 +11,7 @@ var gulp = require('gulp'),
 	newer = require('gulp-newer'),
 	rename = require('gulp-rename'),
 	imagemin = require('gulp-imagemin'),
-	pngquant = require('imagemin-pngquant'),
+	babel = require('gulp-babel'),
 	notify = require('gulp-notify'),
 	debug = require('gulp-debug'),
 	del = require('del');
@@ -69,6 +69,9 @@ gulp.task('scripts', function () {
 			'src/js/_*.js'
 		])
 		.pipe(concat('scripts.min.js'))
+		.pipe(babel({
+		presets: ['@babel/env']
+		}))
 		//.pipe(uglify()) // Minify js (opt.)
 		.pipe(gulp.dest('src/js'))
 		.pipe(browserSync.reload({
@@ -129,6 +132,9 @@ gulp.task('css:build', function () {
 
 gulp.task('js:build', function () {
 	return gulp.src('src/js/scripts.min.js')
+		.pipe(babel({
+			presets: ['@babel/env']
+		}))
 		.pipe(uglify())
 		.pipe(gulp.dest('dist/js/'))
 		.pipe(debug({
