@@ -51,7 +51,7 @@ gulp.task('browser-sync', function () {
 		},
 		notify: false,
 		// online: false, // Work offline without internet connection
-		// tunnel: true, tunnel: 'projectname', // Demonstration page: http://projectname.localtunnel.me
+		//tunnel: true, tunnel: 'webpack-starter', // Demonstration page: http://projectname.localtunnel.me
 	})
 });
 

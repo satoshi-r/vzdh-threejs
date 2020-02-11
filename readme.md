@@ -1,4 +1,4 @@
-<h1>Starter Gulp 4</h1>
+<h1>Starter Gulp 4 + Webpack</h1>
 
 <ol>
 	<li><strong title="gulp task"><em>gulp</em></strong>: run default gulp task ('img', 'styles', 'scripts', 'browser-sync', 'watch')</li>
