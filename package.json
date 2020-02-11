@@ -1,22 +1,24 @@
 {
-	"name": "starter",
+	"name": "gulp-webpack",
 	"version": "1.0.0",
-	"description": "Starter gulp 4",
+	"description": "gulp + webpack starter",
 	"main": "index.js",
+	"private": true,
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
+	"browserslist": "> 0.25%, not dead",
 	"author": "Satoshi",
 	"license": "ISC",
 	"devDependencies": {
 		"@babel/core": "^7.8.4",
 		"@babel/preset-env": "^7.8.4",
+		"babel-loader": "^8.0.6",
 		"bootstrap": "^4.3.1",
 		"browser-sync": "^2.26.7",
 		"del": "^5.1.0",
 		"gulp": "^4.0.2",
 		"gulp-autoprefixer": "^7.0.0",
-		"gulp-babel": "^8.0.0",
 		"gulp-clean-css": "^4.2.0",
 		"gulp-clone": "^2.0.1",
 		"gulp-concat": "^2.6.1",
@@ -28,6 +30,12 @@
 		"gulp-sass": "^4.0.2",
 		"gulp-uglify-es": "^1.0.4",
 		"gulp-webp": "^4.0.1",
-		"imagemin-pngquant": "^8.0.0"
+		"imagemin-pngquant": "^8.0.0",
+		"webpack": "^4.41.5",
+		"webpack-stream": "^5.2.1"
+	},
+	"dependencies": {
+		"jquery": "^3.4.1",
+		"owl.carousel.es6": "^3.0.2"
 	}
 }
