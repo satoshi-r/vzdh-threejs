@@ -35,7 +35,6 @@
 		"webpack-stream": "^5.2.1"
 	},
 	"dependencies": {
-		"jquery": "^3.4.1",
-		"owl.carousel.es6": "^3.0.2"
+		"jquery": "^3.4.1"
 	}
 }
