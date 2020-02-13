@@ -10,6 +10,7 @@
 
 input, textarea
 	outline: none
+	box-shadow: none
 	&:focus:required:invalid
 		border-color: red
 	&:required:valid
@@ -25,6 +26,11 @@ a
 	&:hover, &:active
 		color: $accent
 		text-decoration: none
+
+button
+  &:active, &:focus
+    padding: 0
+    outline: 0
 
 body
 	font-size: 18px
