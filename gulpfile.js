@@ -1,4 +1,4 @@
-var gulp = require('gulp'),
+const gulp = require('gulp'),
 	sass = require('gulp-sass'),
 	browserSync = require('browser-sync'),
 	concat = require('gulp-concat'),
@@ -16,10 +16,9 @@ var gulp = require('gulp'),
 	del = require('del'),
 	webpack = require('webpack-stream');
 
-let isDev = true;
-let isProd = !isDev;
+let isDev = process.env.NODE_ENV == 'development';
 
-let webpackConfig = {
+const webpackConfig = {
 	output: {
 		filename: 'scripts.min.js'
 	},
