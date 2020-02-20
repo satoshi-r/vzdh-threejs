@@ -7,7 +7,7 @@
 	"scripts": {
 		"dev": "cross-env NODE_ENV=development gulp",
 		"build": "cross-env NODE_ENV=production gulp build",
-		"del": "gulp clean:build"
+		"clean": "gulp clean:build"
 	},
 	"browserslist": "> 0.25%, not dead",
 	"author": "Satoshi",
