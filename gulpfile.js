@@ -156,6 +156,12 @@ gulp.task('img:build', () => {
 		.pipe(gulp.dest('dist/img/'))
 });
 
+// Static
+gulp.task('static:build', () => {
+	return gulp.src('src/static/**/*')
+		.pipe(gulp.dest('dist/static'))
+})
+
 gulp.task('fonts:build', () => {
 	return gulp.src(['src/fonts/*', '!src/fonts/_src/**'])
 		.pipe(gulp.dest('dist/fonts/'))
@@ -166,7 +172,7 @@ gulp.task('clean:build', () => {
 	return del('dist')
 });
 
-gulp.task('build', gulp.series('clean:build', gulp.parallel('css:build', 'js:build', 'html:build', 'img:build', 'fonts:build')));
+gulp.task('build', gulp.series('clean:build', gulp.parallel('css:build', 'js:build', 'html:build', 'static:build', 'img:build', 'fonts:build')));
 
 // Watch
 gulp.task('watch', () => {
