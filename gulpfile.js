@@ -23,24 +23,15 @@ const webpackConfig = {
 		filename: 'scripts.min.js'
 	},
 	module: {
-		rules: [
-			{
+			rules: [{
 				test: /\.js$/,
-				loader: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              '@babel/preset-env'
-            ]
-          }
-        },
+				loader: 'babel-loader',
 				exclude: '/node_modules/'
-			}
-		]
-	},
-	mode: isDev ? 'development' : 'production',
-	devtool: isDev ? 'eval-source-map' : 'none'
-};
+			}]
+		},
+		mode: isDev ? 'development' : 'production',
+		devtool: isDev ? 'eval-source-map' : 'none'
+	};
 
 const bsReload = (done => {
 	browserSync.reload();
