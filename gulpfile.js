@@ -30,7 +30,7 @@ const webpackConfig = {
 			}]
 		},
 		mode: isDev ? 'development' : 'production',
-		devtool: isDev ? 'eval-source-map' : 'none'
+		devtool: isDev ? 'source-map' : 'none'
 	};
 
 const bsReload = (done => {
