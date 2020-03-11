@@ -1,0 +1,122 @@
+@import "bootstrap/scss/bootstrap-reboot.scss"; // Bootstrap Reboot collection
+// @import "normalize.css/normalize.css"; // CSS library plug-in example (npm i --save-dev normalize.css)
+
+::placeholder {
+    color: #666;
+}
+
+::selection {
+    background-color: $accent;
+    color: #fff;
+}
+
+* {
+    -webkit-font-smoothing: antialiased; // сглаживание шрифтов
+}
+
+input,
+textarea {
+    outline: none;
+    box-shadow: none;
+
+    &:focus:required:invalid {
+        border-color: red;
+    }
+
+    &:required:valid {
+        border-color: green;
+    }
+}
+
+
+a,
+label {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+a {
+    color: $text;
+    cursor: pointer;
+    transition: .1s;
+
+    &:hover,
+    &:active {
+        color: $accent;
+        text-decoration: none;
+    }
+
+}
+
+
+button {
+
+    &:active,
+    &:focus {
+        padding: 0;
+        outline: 0;
+    }
+}
+
+
+body {
+    font-size: 18px;
+    min-width: 320px;
+    position: relative;
+    line-height: 1.65;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+    color: $text;
+}
+
+
+picture {
+    display: block;
+    text-align: center;
+    margin: 0px auto;
+}
+
+
+.resize-animation-stopper * {
+    animation: none !important;
+    transition: none !important;
+}
+
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1170px;
+    }
+}
