@@ -54,7 +54,7 @@ gulp.task('browser-sync', () => {
 
 // Custom Styles
 gulp.task('styles', () => {
-	return gulp.src(['src/sass/page/**/*.sass', 'src/scss/page/**/*.scss'])
+	return gulp.src('src/sass/**/*.sass')
 		.pipe(sass({
 			outputStyle: 'expanded',
 			includePaths: [__dirname + '/node_modules']
@@ -176,7 +176,7 @@ gulp.task('build', gulp.series('clean:build', gulp.parallel('css:build', 'js:bui
 
 // Watch
 gulp.task('watch', () => {
-	gulp.watch(['src/sass/page/**/*.sass', 'src/scss/page/**/*.scss'], gulp.parallel('styles'));
+	gulp.watch('src/sass/**/*.sass', gulp.parallel('styles'));
 	gulp.watch(['src/js/*.js', '!src/js/scripts.min.js'], gulp.parallel('scripts'));
 	gulp.watch('src/*.html', gulp.parallel('code'));
 	gulp.watch('src/img/_src/**/*', gulp.parallel('img'));
