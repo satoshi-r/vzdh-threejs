@@ -23,15 +23,15 @@ const webpackConfig = {
 		filename: 'scripts.min.js'
 	},
 	module: {
-			rules: [{
-				test: /\.js$/,
-				loader: 'babel-loader',
-				exclude: '/node_modules/'
-			}]
-		},
-		mode: isDev ? 'development' : 'production',
-		devtool: isDev ? 'source-map' : 'none'
-	};
+		rules: [{
+			test: /\.js$/,
+			loader: 'babel-loader',
+			exclude: '/node_modules/'
+		}]
+	},
+	mode: isDev ? 'development' : 'production',
+	devtool: isDev ? 'source-map' : 'none'
+};
 
 const bsReload = (done => {
 	browserSync.reload();
@@ -41,12 +41,9 @@ const bsReload = (done => {
 // Local Server
 gulp.task('browser-sync', () => {
 	browserSync({
-		server: {
-			baseDir: 'src'
-		},
+		proxy: 'localhost/vzdh-threejs/src',
 		notify: false,
-		// online: false, // Work offline without internet connection
-		//tunnel: true, tunnel: 'webpack-starter', // Demonstration page: http://projectname.localtunnel.me
+		port: 4000
 	})
 });
 
@@ -98,22 +95,32 @@ gulp.task('scripts', () => {
 gulp.task('images', async () => {
 	return gulp.src('src/img/_src/**/*.{png,jpg,jpeg,webp,raw,svg,gif}')
 		.pipe(imagemin([
-	    imagemin.gifsicle({interlaced: true}),
-	    imagemin.mozjpeg({quality: 75, progressive: true}),
-	    imagemin.optipng({optimizationLevel: 5}),
-	    imagemin.svgo({
-	        plugins: [
-	            {removeViewBox: true},
-	            {cleanupIDs: false}
-	        ]
-	    })
-    ]))
+			imagemin.gifsicle({
+				interlaced: true
+			}),
+			imagemin.mozjpeg({
+				quality: 75,
+				progressive: true
+			}),
+			imagemin.optipng({
+				optimizationLevel: 5
+			}),
+			imagemin.svgo({
+				plugins: [{
+						removeViewBox: true
+					},
+					{
+						cleanupIDs: false
+					}
+				]
+			})
+		]))
 		.pipe(newer('src/img'))
 		.pipe(rename((path => path.extname = path.extname.replace('jpeg', 'jpg'))))
 		.pipe(clonesink) // start stream
 		.pipe(webp()) // convert images to webp and save a copy of the original format
 		.pipe(clonesink.tap()) // close stream
-		
+
 		.pipe(gulp.dest('src/img'))
 });
 
