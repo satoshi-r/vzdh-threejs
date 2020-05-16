@@ -22,6 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function init() {
         container = document.createElement('div');
+        container.classList.add('main');
         document.body.appendChild(container);
 
         camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 100000);
@@ -75,7 +76,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         //
 
-        renderer = new THREE.WebGLRenderer();
+        renderer = new THREE.WebGLRenderer({alpha: true});
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);

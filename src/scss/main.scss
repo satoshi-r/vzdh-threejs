@@ -1,3 +1,8 @@
 @import 'vars';
 @import 'fonts';
 @import 'general';
+
+.main {
+    background: url('../img/Back.jpg') no-repeat center center;
+    background-size: cover;
+}
