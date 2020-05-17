@@ -35,35 +35,25 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // texture
 
+        // текстуры должны быть 1:1 в таком порядке: [pos-x, neg-x, pos-y, neg-y, pos-z, neg-z]
+
         const urls = [
-            'posx.jpg',
-            'negx.jpg',
-            'posy.jpg',
-            'negy.jpg',
-            'posz.jpg',
-            'negz.jpg'
+            'Back1.jpg',
+            'Back2.jpg',
+            'Back3.jpg',
+            'Back4.jpg',
+            'Back5.jpg',
+            'Back6.jpg'
         ];
 
-        const textureCube = new THREE.CubeTextureLoader()
-            .setPath('static/textures/Park2/')
-            .load(urls);
-
-        // const urls = [
-        //     'Back1.jpg',
-        //     'Back2.jpg',
-        //     'Back3.jpg',
-        //     'Back4.jpg',
-        //     'Back5.jpg',
-        //     'Back6.jpg'
-        // ];
-
-        const texture = new THREE.TextureLoader()
+        const texture = new THREE.CubeTextureLoader()
             .setPath('static/textures/back/')
-            .load('Back.jpg', (load) => console.log(load), null, (error) => console.error(error));
+            .load(urls, (load) => createMesh(), null, (error) => console.error(error));
 
+        const bgTexture = new THREE.TextureLoader().load('static/textures/back/Back.jpg', null, null, (error) => console.error(error));
 
         scene = new THREE.Scene();
-        scene.background = texture;
+        scene.background = bgTexture;
 
         // mesh
 
@@ -72,7 +62,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const shader = FresnelShader;
         const uniforms = THREE.UniformsUtils.clone(shader.uniforms);
 
-        uniforms['tCube'].value = textureCube;
+        uniforms['tCube'].value = texture;
 
         const material = new THREE.ShaderMaterial({
             uniforms: uniforms,
@@ -80,22 +70,25 @@ window.addEventListener('DOMContentLoaded', () => {
             fragmentShader: shader.fragmentShader
         });
 
+        const createMesh = () => {
+            for (var i = 0; i < 500; i++) {
 
-        for (var i = 0; i < 500; i++) {
+                const mesh = new THREE.Mesh(geometry, material);
 
-            const mesh = new THREE.Mesh(geometry, material);
+                mesh.position.x = Math.random() * 10000 - 5000;
+                mesh.position.y = Math.random() * 10000 - 5000;
+                mesh.position.z = Math.random() * 10000 - 5000;
 
-            mesh.position.x = Math.random() * 10000 - 5000;
-            mesh.position.y = Math.random() * 10000 - 5000;
-            mesh.position.z = Math.random() * 10000 - 5000;
+                mesh.scale.x = mesh.scale.y = mesh.scale.z = Math.random() * 3 + 1;
 
-            mesh.scale.x = mesh.scale.y = mesh.scale.z = Math.random() * 3 + 1;
+                scene.add(mesh);
 
-            scene.add(mesh);
+                spheres.push(mesh);
 
-            spheres.push(mesh);
-
+            }
         }
+
+        
 
         // light
 
@@ -103,6 +96,8 @@ window.addEventListener('DOMContentLoaded', () => {
         light.position.set(-1, 2, 4);
         scene.add(light);
 
+        const hemiLight = new THREE.HemisphereLight(0xFFFFFF, 0x999999, 1);
+        scene.add(hemiLight);
         // renderer
 
         renderer = new THREE.WebGLRenderer({
