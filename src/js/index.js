@@ -1,7 +1,5 @@
 import * as THREE from 'three';
-import {
-    FresnelShader
-} from 'three/examples/jsm/shaders/FresnelShader';
+import {FresnelShader} from 'three/examples/jsm/shaders/FresnelShader';
 
 // tools
 
@@ -31,7 +29,7 @@ window.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(container);
 
         camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 100000);
-        camera.position.z = 5200;
+        camera.position.z = 7200;
 
         // texture
 
@@ -52,8 +50,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
         const bgTexture = new THREE.TextureLoader().load('static/textures/back/Back.jpg', null, null, (error) => console.error(error));
 
+        const skyUrls = [
+            'px.jpg',
+            'nx.jpg',
+            'py.jpg',
+            'ny.jpg',
+            'pz.jpg',
+            'nz.jpg'
+        ];
+
+        const skyTexture = new THREE.CubeTextureLoader()
+            .setPath('static/textures/sky/')
+            .load(skyUrls, (load) => createMesh(), null, (error) => console.error(error));
+
         scene = new THREE.Scene();
-        scene.background = bgTexture;
+        scene.background = skyTexture;
 
         // mesh
 
@@ -62,7 +73,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const shader = FresnelShader;
         const uniforms = THREE.UniformsUtils.clone(shader.uniforms);
 
-        uniforms['tCube'].value = texture;
+        uniforms['tCube'].value = skyTexture;
 
         const material = new THREE.ShaderMaterial({
             uniforms: uniforms,
