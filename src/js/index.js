@@ -45,7 +45,7 @@ window.addEventListener('DOMContentLoaded', () => {
         ];
 
         const textureCube = new THREE.CubeTextureLoader()
-            .setPath('js/textures/Park2/')
+            .setPath('static/textures/Park2/')
             .load(urls);
 
         // const urls = [
@@ -58,7 +58,7 @@ window.addEventListener('DOMContentLoaded', () => {
         // ];
 
         const texture = new THREE.TextureLoader()
-            .setPath('js/textures/')
+            .setPath('static/textures/back/')
             .load('Back.jpg', (load) => console.log(load), null, (error) => console.error(error));
 
 
