@@ -1,11 +1,16 @@
-import * as THREE from 'three'
-import {FresnelShader} from 'three/examples/jsm/shaders/FresnelShader'
+import * as THREE from 'three';
+import {
+    FresnelShader
+} from 'three/examples/jsm/shaders/FresnelShader';
 
-import * as dat from 'dat.gui'
+// tools
+
+import Stats from 'three/examples/jsm/libs/stats.module';
+import * as dat from 'dat.gui';
 
 window.addEventListener('DOMContentLoaded', () => {
     let container;
-    let camera, scene, renderer;
+    let camera, scene, renderer, stats;
 
     const spheres = [];
 
@@ -26,37 +31,55 @@ window.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(container);
 
         camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 100000);
-        camera.position.z = 3200;
+        camera.position.z = 5200;
 
-        //
+        // texture
 
-        const path = "textures/Park2/"; // закинуть свою
-        const format = '.jpg';
         const urls = [
-            path + 'posx' + format, path + 'negx' + format,
-            path + 'posy' + format, path + 'negy' + format,
-            path + 'posz' + format, path + 'negz' + format
+            'posx.jpg',
+            'negx.jpg',
+            'posy.jpg',
+            'negy.jpg',
+            'posz.jpg',
+            'negz.jpg'
         ];
 
-        const textureCube = new THREE.CubeTextureLoader().load(urls);
+        const textureCube = new THREE.CubeTextureLoader()
+            .setPath('js/textures/Park2/')
+            .load(urls);
+
+        // const urls = [
+        //     'Back1.jpg',
+        //     'Back2.jpg',
+        //     'Back3.jpg',
+        //     'Back4.jpg',
+        //     'Back5.jpg',
+        //     'Back6.jpg'
+        // ];
+
+        const texture = new THREE.TextureLoader()
+            .setPath('js/textures/')
+            .load('Back.jpg', (load) => console.log(load), null, (error) => console.error(error));
+
 
         scene = new THREE.Scene();
-        scene.background = textureCube;
+        scene.background = texture;
 
-        //
+        // mesh
 
-        const geometry = new THREE.SphereBufferGeometry(100, 32, 16);
+        const geometry = new THREE.SphereBufferGeometry(100, 64, 32);
 
         const shader = FresnelShader;
         const uniforms = THREE.UniformsUtils.clone(shader.uniforms);
 
-        uniforms["tCube"].value = textureCube;
+        uniforms['tCube'].value = textureCube;
 
         const material = new THREE.ShaderMaterial({
             uniforms: uniforms,
             vertexShader: shader.vertexShader,
             fragmentShader: shader.fragmentShader
         });
+
 
         for (var i = 0; i < 500; i++) {
 
@@ -74,12 +97,23 @@ window.addEventListener('DOMContentLoaded', () => {
 
         }
 
-        //
+        // light
 
-        renderer = new THREE.WebGLRenderer({alpha: true});
+        const light = new THREE.DirectionalLight(0x404040, 1); // soft white light
+        light.position.set(-1, 2, 4);
+        scene.add(light);
+
+        // renderer
+
+        renderer = new THREE.WebGLRenderer({
+            alpha: true
+        });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
+
+        stats = new Stats();
+        container.appendChild(stats.dom);
 
         //
 
@@ -112,6 +146,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         requestAnimationFrame(animate);
 
+        stats.update();
         render();
 
     }
@@ -137,5 +172,5 @@ window.addEventListener('DOMContentLoaded', () => {
         renderer.render(scene, camera);
 
     }
-    
+
 });

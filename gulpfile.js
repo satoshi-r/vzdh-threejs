@@ -29,6 +29,9 @@ const webpackConfig = {
 			exclude: '/node_modules/'
 		}]
 	},
+	devServer: {
+		overlay: true
+	},
 	mode: isDev ? 'development' : 'production',
 	devtool: isDev ? 'source-map' : 'none'
 };

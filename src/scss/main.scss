@@ -2,7 +2,11 @@
 @import 'fonts';
 @import 'general';
 
+body {
+    overflow-y: hidden;
+}
+
 .main {
-    background: url('../img/Back.jpg') no-repeat center center;
+    // background: url('../img/Back.jpg') no-repeat center center;
     background-size: cover;
 }
