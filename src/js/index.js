@@ -1,5 +1,14 @@
+/* examples:
+https://threejs.org/examples/#webgl_materials_shaders_fresnel пузыри
+https://threejs.org/examples/#webgl_postprocessing_dof глубина резкости
+https://threejs.org/examples/#webgl_postprocessing_dof2
+*/
+
 import * as THREE from 'three';
 import {FresnelShader} from 'three/examples/jsm/shaders/FresnelShader';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
 
 // tools
 
@@ -18,6 +27,11 @@ window.addEventListener('DOMContentLoaded', () => {
     let windowHalfX = window.innerWidth / 2;
     let windowHalfY = window.innerHeight / 2;
 
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
+    let postprocessing = {};
+
     document.addEventListener('mousemove', onDocumentMouseMove, false);
 
     init();
@@ -29,10 +43,9 @@ window.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(container);
 
         camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 100000);
-        camera.position.z = 7200;
+        camera.position.z = 3200;
 
         // texture
-
         // текстуры должны быть 1:1 в таком порядке: [pos-x, neg-x, pos-y, neg-y, pos-z, neg-z]
 
         const urls = [
@@ -44,11 +57,15 @@ window.addEventListener('DOMContentLoaded', () => {
             'Back6.jpg'
         ];
 
+        // нарезка Серёгиной картинки на текстуры
+
         const texture = new THREE.CubeTextureLoader()
             .setPath('static/textures/back/')
             .load(urls, (load) => createMesh(), null, (error) => console.error(error));
 
-        const bgTexture = new THREE.TextureLoader().load('static/textures/back/Back.jpg', null, null, (error) => console.error(error));
+        // Серёгина картинка
+
+        const bgTexture = new THREE.TextureLoader().load('static/textures/back/Back.jpg', null, null, (error) => console.error(error)); 
 
         const skyUrls = [
             'px.jpg',
@@ -109,6 +126,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         const hemiLight = new THREE.HemisphereLight(0xFFFFFF, 0x999999, 1);
         scene.add(hemiLight);
+
         // renderer
 
         renderer = new THREE.WebGLRenderer({
@@ -118,12 +136,59 @@ window.addEventListener('DOMContentLoaded', () => {
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
 
+        initPostprocessing();
+
+        // init tools
+
         stats = new Stats();
         container.appendChild(stats.dom);
+
+        const effectController = {
+            focus: 1490,
+            aperture: 0.6,
+            maxblur: 0.05,
+        };
+
+        const matChanger = () => {
+            postprocessing.bokeh.uniforms["focus"].value = effectController.focus;
+            postprocessing.bokeh.uniforms["aperture"].value = effectController.aperture * 0.00001;
+            postprocessing.bokeh.uniforms["maxblur"].value = effectController.maxblur;
+        };
+
+        const gui = new dat.GUI();
+        gui.add(effectController, "focus", 10.0, 3000.0, 10).onChange(matChanger);
+        gui.add(effectController, "aperture", 0, 10, 0.1).onChange(matChanger);
+        gui.add(effectController, "maxblur", 0.0, 3.0, 0.025).onChange(matChanger);
+        gui.close();
+
+        matChanger();
 
         //
 
         window.addEventListener('resize', onWindowResize, false);
+
+    }
+
+    function initPostprocessing() {
+
+        const renderPass = new RenderPass(scene, camera);
+
+        const bokehPass = new BokehPass(scene, camera, {
+            focus: 1.0,
+            aperture: 0.025,
+            maxblur: 1.0,
+
+            width: width,
+            height: height
+        });
+
+        const composer = new EffectComposer(renderer);
+
+        composer.addPass(renderPass);
+        composer.addPass(bokehPass);
+
+        postprocessing.composer = composer;
+        postprocessing.bokeh = bokehPass;
 
     }
 
@@ -136,6 +201,7 @@ window.addEventListener('DOMContentLoaded', () => {
         camera.updateProjectionMatrix();
 
         renderer.setSize(window.innerWidth, window.innerHeight);
+        postprocessing.composer.setSize(window.innerWidth, window.innerHeight);
 
     }
 
@@ -176,6 +242,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         renderer.render(scene, camera);
+        postprocessing.composer.render(0.1);
 
     }
 
