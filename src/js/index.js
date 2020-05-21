@@ -24,13 +24,13 @@ window.addEventListener('DOMContentLoaded', () => {
     let mouseX = 0;
     let mouseY = 0;
 
-    let windowHalfX = window.innerWidth / 2;
-    let windowHalfY = window.innerHeight / 2;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
 
-    let width = window.innerWidth;
-    let height = window.innerHeight;
+    let windowHalfX = width / 2;
+    let windowHalfY = height / 2;
 
-    let postprocessing = {};
+    const postprocessing = {};
 
     document.addEventListener('mousemove', onDocumentMouseMove, false);
 
@@ -120,12 +120,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // light
 
-        const light = new THREE.DirectionalLight(0x404040, 1); // soft white light
-        light.position.set(-1, 2, 4);
-        scene.add(light);
+        scene.add(new THREE.AmbientLight(0x222222));
 
-        const hemiLight = new THREE.HemisphereLight(0xFFFFFF, 0x999999, 1);
-        scene.add(hemiLight);
+        var directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+        directionalLight.position.set(2, 1.2, 10).normalize();
+        scene.add(directionalLight);
+
+        var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(-2, 1.2, -10).normalize();
+        scene.add(directionalLight);
 
         // renderer
 
