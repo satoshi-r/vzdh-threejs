@@ -7,39 +7,36 @@
 	"scripts": {
 		"dev": "cross-env NODE_ENV=development gulp",
 		"build": "cross-env NODE_ENV=production gulp build",
-		"clean": "gulp clean:build"
+		"clean": "gulp cleanimg"
 	},
 	"browserslist": "> 0.25%, not dead",
 	"author": "Satoshi",
 	"license": "ISC",
 	"devDependencies": {
-		"@babel/core": "^7.8.4",
-		"@babel/preset-env": "^7.8.4",
-		"babel-loader": "^8.0.6",
-		"bootstrap": "^4.3.1",
+		"bootstrap": "^4.5.0",
 		"browser-sync": "^2.26.7",
-		"cross-env": "^7.0.0",
+		"cross-env": "^7.0.2",
 		"del": "^5.1.0",
 		"gulp": "^4.0.2",
-		"gulp-autoprefixer": "^7.0.0",
-		"gulp-clean-css": "^4.2.0",
+		"gulp-autoprefixer": "^7.0.1",
+		"gulp-clean-css": "^4.3.0",
 		"gulp-clone": "^2.0.1",
 		"gulp-concat": "^2.6.1",
 		"gulp-debug": "^4.0.0",
 		"gulp-imagemin": "^7.1.0",
 		"gulp-newer": "^1.4.0",
 		"gulp-notify": "^3.2.0",
-		"gulp-rename": "^1.4.0",
-		"gulp-sass": "^4.0.2",
-		"gulp-uglify-es": "^1.0.4",
+		"gulp-rename": "^2.0.0",
+		"gulp-sass": "^4.1.0",
+		"gulp-uglify-es": "^2.0.0",
 		"gulp-webp": "^4.0.1",
 		"imagemin-pngquant": "^8.0.0",
-		"webpack": "^4.41.6",
+		"webpack": "^4.43.0",
 		"webpack-stream": "^5.2.1"
 	},
 	"dependencies": {
 		"dat.gui": "^0.7.7",
-		"jquery": "^3.4.1",
+		"jquery": "^3.5.1",
 		"three": "^0.116.1"
 	}
 }
