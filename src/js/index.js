@@ -5,7 +5,7 @@ https://threejs.org/examples/#webgl_postprocessing_dof2
 */
 
 import * as THREE from 'three';
-import {FresnelShader} from 'three/examples/jsm/shaders/FresnelShader';
+import { FresnelShader } from 'three/examples/jsm/shaders/FresnelShader';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
@@ -59,13 +59,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // нарезка Серёгиной картинки на текстуры
 
-        const texture = new THREE.CubeTextureLoader()
-            .setPath('static/textures/back/')
-            .load(urls, (load) => createMesh(), null, (error) => console.error(error));
+        // const texture = new THREE.CubeTextureLoader()
+        //     .setPath('static/textures/back/')
+        //     .load(urls, (load) => createMesh(), null, (error) => console.error(error));
 
         // Серёгина картинка
 
-        const bgTexture = new THREE.TextureLoader().load('static/textures/back/Back.jpg', null, null, (error) => console.error(error)); 
+        // const bgTexture = new THREE.TextureLoader().load('static/textures/back/Back.jpg', null, null, (error) => console.error(error)); 
 
         const skyUrls = [
             'px.jpg',
@@ -159,7 +159,7 @@ window.addEventListener('DOMContentLoaded', () => {
         gui.add(effectController, "focus", 10.0, 3000.0, 10).onChange(matChanger);
         gui.add(effectController, "aperture", 0, 10, 0.1).onChange(matChanger);
         gui.add(effectController, "maxblur", 0.0, 3.0, 0.025).onChange(matChanger);
-        gui.close();
+        gui.open();
 
         matChanger();
 
