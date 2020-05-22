@@ -147,9 +147,9 @@ window.addEventListener('DOMContentLoaded', () => {
         container.appendChild(stats.dom);
 
         const effectController = {
-            focus: 1490,
-            aperture: 0.6,
-            maxblur: 0.05,
+            focus: 3000,
+            aperture: 0.1,
+            maxblur: 0.01,
         };
 
         const matChanger = () => {
