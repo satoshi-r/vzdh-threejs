@@ -161,7 +161,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const gui = new dat.GUI();
         gui.add(effectController, "focus", 10.0, 3000.0, 10).onChange(matChanger);
         gui.add(effectController, "aperture", 0, 10, 0.1).onChange(matChanger);
-        gui.add(effectController, "maxblur", 0.0, 3.0, 0.025).onChange(matChanger);
+        gui.add(effectController, "maxblur", 0.0, 3.0, 0.01).onChange(matChanger);
         gui.open();
 
         matChanger();
