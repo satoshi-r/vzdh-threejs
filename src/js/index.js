@@ -42,32 +42,14 @@ window.addEventListener('DOMContentLoaded', () => {
         container.classList.add('main');
         document.body.appendChild(container);
 
-        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 100000);
+        camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 100000);
         camera.position.z = 3200;
 
         // texture
         // текстуры должны быть 1:1 в таком порядке: [pos-x, neg-x, pos-y, neg-y, pos-z, neg-z]
+        // https://jaxry.github.io/panorama-to-cubemap/
 
         const urls = [
-            'Back1.jpg',
-            'Back2.jpg',
-            'Back3.jpg',
-            'Back4.jpg',
-            'Back5.jpg',
-            'Back6.jpg'
-        ];
-
-        // нарезка Серёгиной картинки на текстуры
-
-        // const texture = new THREE.CubeTextureLoader()
-        //     .setPath('static/textures/back/')
-        //     .load(urls, (load) => createMesh(), null, (error) => console.error(error));
-
-        // Серёгина картинка
-
-        // const bgTexture = new THREE.TextureLoader().load('static/textures/back/Back.jpg', null, null, (error) => console.error(error)); 
-
-        const skyUrls = [
             'px.jpg',
             'nx.jpg',
             'py.jpg',
@@ -76,12 +58,12 @@ window.addEventListener('DOMContentLoaded', () => {
             'nz.jpg'
         ];
 
-        const skyTexture = new THREE.CubeTextureLoader()
+        const texture = new THREE.CubeTextureLoader()
             .setPath('static/textures/sky/')
-            .load(skyUrls, (load) => createMesh(), null, (error) => console.error(error));
+            .load(urls, (load) => createMesh(), null, (error) => console.error(error));
 
         scene = new THREE.Scene();
-        scene.background = skyTexture;
+        scene.background = texture;
 
         // mesh
 
@@ -90,7 +72,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const shader = FresnelShader;
         const uniforms = THREE.UniformsUtils.clone(shader.uniforms);
 
-        uniforms['tCube'].value = skyTexture;
+        uniforms['tCube'].value = texture;
 
         const material = new THREE.ShaderMaterial({
             uniforms: uniforms,
@@ -99,7 +81,7 @@ window.addEventListener('DOMContentLoaded', () => {
         });
 
         const createMesh = () => {
-            for (var i = 0; i < 500; i++) {
+            for (var i = 0; i < 150; i++) {
 
                 const mesh = new THREE.Mesh(geometry, material);
 
@@ -117,18 +99,17 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         
-
         // light
 
         scene.add(new THREE.AmbientLight(0x222222));
 
-        var directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
         directionalLight.position.set(2, 1.2, 10).normalize();
         scene.add(directionalLight);
 
-        var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(-2, 1.2, -10).normalize();
-        scene.add(directionalLight);
+        const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight2.position.set(-2, 1.2, -10).normalize();
+        scene.add(directionalLight2);
 
         // renderer
 
