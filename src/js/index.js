@@ -42,7 +42,7 @@ window.addEventListener('DOMContentLoaded', () => {
         container.classList.add('main');
         document.body.appendChild(container);
 
-        camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 100000);
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 100000);
         camera.position.z = 3200;
 
         // texture
@@ -230,8 +230,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
         let timer = 0.0001 * Date.now();
 
-        camera.position.x += (mouseX - camera.position.x) * .05;
-        camera.position.y += (-mouseY - camera.position.y) * .05;
+        camera.position.x += (mouseX - camera.position.x) * .02;
+        camera.position.y += (-mouseY - camera.position.y) * .02;
 
         camera.lookAt(scene.position);
 
