@@ -88,7 +88,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 mesh.position.x = Math.random() * 10000 - 5000;
                 mesh.position.y = Math.random() * 10000 - 5000;
                 mesh.position.z = Math.random() * 10000 - 5000;
-
+                // console.log(Math.random());
+                
                 mesh.scale.x = mesh.scale.y = mesh.scale.z = Math.random() * 3 + 1;
 
                 scene.add(mesh);
@@ -143,7 +144,7 @@ window.addEventListener('DOMContentLoaded', () => {
         gui.add(effectController, "focus", 10.0, 3000.0, 10).onChange(matChanger);
         gui.add(effectController, "aperture", 0, 10, 0.1).onChange(matChanger);
         gui.add(effectController, "maxblur", 0.0, 3.0, 0.01).onChange(matChanger);
-        gui.open();
+        gui.close();
 
         matChanger();
 
@@ -207,6 +208,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    const rand = Math.random;
+
     function render() {
 
         let timer = 0.0001 * Date.now();
@@ -220,9 +223,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
             const sphere = spheres[i];
 
-            sphere.position.x = 5000 * Math.cos(timer + i);
+            // sphere.position.x = 5000 * Math.cos(timer + i);
             sphere.position.y = 5000 * Math.sin(timer + i * 1.1);
-
+            
+            // sphere.position.set(rand() * 5000, 0 + rand() * 10000, rand() * 5000);
+            // sphere.position.dx = (rand() - 5000);
+            // sphere.position.dz = (rand() - 5000);
+            
         }
 
         renderer.render(scene, camera);

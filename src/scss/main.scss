@@ -6,7 +6,50 @@ body {
     overflow-y: hidden;
 }
 
-.main {
-    // background: url('../img/Back.jpg') no-repeat center center;
-    // background-size: cover;
+// dat.gui
+.dg.ac {
+    right: 200px;
+}
+
+.wrap {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &-v {
+        width: 50px;
+        height: auto;
+        position: absolute;
+        top: 55px;
+        left: 55px;
+    }
+    &-z {
+        width: 50px;
+        height: auto;
+        position: absolute;
+        top: 55px;
+        right: 55px;
+    }
+    &-d {
+        width: 50px;
+        height: auto;
+        position: absolute;
+        bottom: 55px;
+        left: 55px;
+    }
+    &-h {
+        width: 50px;
+        height: auto;
+        position: absolute;
+        bottom: 55px;
+        right: 55px;
+    }
+    &-text {
+        position: absolute;
+        bottom: 170px;
+        left: 170px;
+        width: 400px;
+    }
 }
