@@ -2,7 +2,6 @@ const gulp = require('gulp'),
 	sass = require('gulp-sass'),
 	browserSync = require('browser-sync'),
 	concat = require('gulp-concat'),
-	uglify = require('gulp-uglify-es').default,
 	cleancss = require('gulp-clean-css'),
 	autoprefixer = require('gulp-autoprefixer'),
 	webp = require('gulp-webp'),
@@ -150,8 +149,11 @@ gulp.task('css:build', () => {
 });
 
 gulp.task('js:build', () => {
-	return gulp.src('src/js/scripts.min.js')
-		.pipe(uglify())
+	return gulp.src('src/js/index.js')
+		.pipe(webpack(webpackConfig))
+		.pipe(debug({
+			title: 'webpack'
+		}))
 		.pipe(gulp.dest('dist/js/'))
 });
 
